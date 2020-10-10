@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = HelloController.class)
@@ -21,6 +21,16 @@ public class HelloControllerTest {
         String hello = "hello";
 
         mvc.perform(get("/hello")).andExpect(status().isOk()).andExpect(content().string(hello));
+    }
+
+    @Test
+    public void helloDTO_return() throws Exception{
+        String name = "hello";
+        int amount = 1000;
+
+        mvc.perform(get("/hello/dto").param("name", name).param("amount", String.valueOf(amount)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(name))).andExpect(jsonPath("$.amount", is(amount)));
     }
 }
 /*
@@ -54,4 +64,12 @@ public class HelloControllerTest {
  : mvc.perform의 결과를 검증한다.
   응답 본무의 내용을 검증한다.
   Controller에서 "hello"를 리턴하기 때문에 이 값이 맞는지 검증한다.
+
+8. param
+ : api 테스트 할 때 사용될 요청 파라미터를 설정한다. 단, 값은 String 만 허용.
+  그래서 숫자, 날짜 등의 데이터도 등록할 때는 문자열로 변경해야만 가능하다.
+
+9. jsonPath
+ : json 응답값의 빌드별로 검증할 수 있는 메서드.
+  $를 기준으로 필드명을 명시한다. $.* 형식.
  */
