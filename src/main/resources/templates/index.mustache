@@ -22,7 +22,7 @@
                 {{#posts}} <!-- posts라는 list를 뽑아낸다. for문과 동일-->
                     <tr>
                         <td>{{id}}</td>
-                        <td>{{title}}</td>
+                        <td><a href="/posts/update/{{id}}">{{title}}</a></td>
                         <td>{{author}}</td>
                         <td>{{modifiedDate}}</td>
                     </tr>
