@@ -21,6 +21,7 @@ public class PostsService {
         return postsRepository.save(requestDTO.toEntity()).getId();
     }
 
+    @Transactional
     public Long update(Long id, PostsUpdateRequestDTO requestDTO) {
         Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
         posts.update(requestDTO.getTitle(), requestDTO.getContent());
