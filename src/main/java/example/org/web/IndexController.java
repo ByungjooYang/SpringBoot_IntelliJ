@@ -21,6 +21,7 @@ public class IndexController {
 
     @GetMapping("/posts/save")
     public String postsSave() {
+
         return "posts-save";
     }
 
@@ -31,6 +32,7 @@ public class IndexController {
 
         return "posts-update";
     }
+
 }
 
 /*
