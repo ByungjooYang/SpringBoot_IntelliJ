@@ -30,3 +30,12 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
         return httpSession.getAttribute("user");
     }
 }
+
+/*
+1. suportsParameter()
+ : 컨트롤러 메서드의 특정 파라미터를 지원하는지 판단한다.
+  여기서는 파라미터에 @LoginUser  어노테이션이 붙어있고, 파라미터 클래스 타입이 SessionUser.class 인 경우 true를 반환한다.
+
+2. resolverArgument()
+ : 파라미터테 전달할 객체를 생성한다. 여기서는 세션에서 객체를 가져온다.
+ */
