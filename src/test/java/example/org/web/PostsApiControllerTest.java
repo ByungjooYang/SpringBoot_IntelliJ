@@ -1,25 +1,32 @@
 package example.org.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import example.org.domain.posts.Posts;
 import example.org.domain.posts.PostsRepository;
 import example.org.web.dto.PostsSaveRequestDTO;
 import example.org.web.dto.PostsUpdateRequestDTO;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -30,6 +37,15 @@ public class PostsApiControllerTest {
     private TestRestTemplate restTemplate;
     @Autowired
     private PostsRepository postsRepository;
+    @Autowired
+    private WebApplicationContext context;
+
+    private MockMvc mvc;
+
+    @Before
+    public void setup() {
+        mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
+    }
 
     @After
     public void tearDrop() throws Exception {
@@ -37,6 +53,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void posts_save() throws Exception {
         String title = "title";
         String content = "content";
@@ -50,6 +67,8 @@ public class PostsApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
+        mvc.perform(MockMvcRequestBuilders.post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(new ObjectMapper().writeValueAsString(requestDTO))).andExpect(status().isOk());
+
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
@@ -58,6 +77,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void posts_Update() throws Exception{
         Posts savedPosts = postsRepository.save(Posts.builder().title("title").content("content").author("author").build());
 
@@ -75,6 +95,9 @@ public class PostsApiControllerTest {
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        //when
+        mvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(new ObjectMapper().writeValueAsString(requestDTO))).andExpect(status().isOk());
 
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
