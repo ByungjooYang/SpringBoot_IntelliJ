@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,6 +23,15 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
+
+        Enumeration se = httpSession.getAttributeNames();
+
+        while(se.hasMoreElements()) {
+            String getse = se.nextElement() + "";
+
+            System.out.println("@@@@@@@ session : " + getse + " : " + httpSession.getAttribute(getse));
+
+        }
 
         if (user != null) {
             model.addAttribute("userName", user.getName());
