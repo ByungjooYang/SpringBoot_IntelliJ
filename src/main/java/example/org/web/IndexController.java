@@ -26,7 +26,7 @@ public class IndexController {
 
         Enumeration se = httpSession.getAttributeNames();
 
-        while(se.hasMoreElements()) {
+        while (se.hasMoreElements()) {
             String getse = se.nextElement() + "";
 
             System.out.println("@@@@@@@ session : " + getse + " : " + httpSession.getAttribute(getse));
@@ -54,6 +54,17 @@ public class IndexController {
         return "posts-update";
     }
 
+    @GetMapping("/loginForm")
+    public String loginForm() {
+
+        return "loginForm";
+    }
+
+    @GetMapping("/joinForm")
+    public String joinForm() {
+
+        return "joinForm";
+    }
 }
 
 /*
