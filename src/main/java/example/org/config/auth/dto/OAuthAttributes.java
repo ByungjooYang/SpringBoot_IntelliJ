@@ -44,6 +44,7 @@ public class OAuthAttributes {
 
     private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
         Map<String, Object> response = (Map<String, Object>)attributes.get("response");
+        System.out.println(response.get("name"));
 
         return OAuthAttributes.builder().name((String) response.get("name"))
                                         .email((String) response.get("email"))
@@ -55,7 +56,7 @@ public class OAuthAttributes {
 
     public User toEntity() {
 
-        return User.builder().name(name).email(email).picture(picture).role(Role.GUEST).build();
+        return User.builder().name(name).email(email).picture(picture).role(Role.USER).build();
     }
 
 

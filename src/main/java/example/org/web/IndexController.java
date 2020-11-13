@@ -32,8 +32,8 @@ public class IndexController {
             System.out.println("@@@@@@@ session : " + getse + " : " + httpSession.getAttribute(getse));
 
         }
-
         if (user != null) {
+            System.out.println(user.getName());
             model.addAttribute("userName", user.getName());
         }
 
