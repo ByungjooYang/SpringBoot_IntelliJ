@@ -59,7 +59,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
  : OAuth2 로그인 진행시 키가되는 필드값을 말한다. 기본키와 같은 의미
   구글의 경우 기본적으로 코드를 지원하나 다른 것들은 지원하지 않는다. 구글의 기본 코드는 sub 이다.
 
- 3. OAuthAttribute
+3. OAuthAttribute
   : OAuth2UserService 를 통해 가져온 OAuth2User 의 attribute 를 담을 클래스이다.
 
 4. SessionUser
