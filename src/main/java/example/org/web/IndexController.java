@@ -5,6 +5,7 @@ import example.org.config.auth.dto.SessionUser;
 import example.org.service.posts.PostsService;
 import example.org.web.dto.PostsResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,8 @@ public class IndexController {
         }
         if (user != null) {
             System.out.println(user.getName());
-            model.addAttribute("userName", user.getName());
+            //model.addAttribute("userName", user.getName());
+            model.addAttribute("userName", "aaa");
         }
 
         return "index";

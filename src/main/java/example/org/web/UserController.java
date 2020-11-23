@@ -15,6 +15,5 @@ public class UserController {
     @PostMapping("/join")
     public void join(@RequestParam UserDTO userDTO) {
         userService.save(userDTO);
-
     }
 }

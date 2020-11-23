@@ -36,7 +36,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
        User user = saveOrUpdate(attributes);
-       System.out.println(user.getName());
+
        httpSession.setAttribute("user", new SessionUser(user));
 
        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())), attributes.getAttributes(), attributes.getNameAttributeKey());
@@ -64,6 +64,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 4. SessionUser
  : 세션에 사용자 정보를 저장하기 위한 dto 클래스이다.
-  User 클래스를 쓰지 않는 이유는 직렬화를 구현하지 않았기 때문이다. User 클래스는 앤티티이기 때문에 다른 엔티티와 관계가 형성될 수 있기 때문ㅇㅇ이다.
+  User 클래스를 쓰지 않는 이유는 직렬화를 구현하지 않았기 때문이다. User 클래스는 앤티티이기 때문에 다른 엔티티와 관계가 형성될 수 있기 때문이다.
   따라서 직렬화 기능을 가진 dto를 하나 추가로 만드는 것이 운영 및 유지보수에 좋다.
  */
