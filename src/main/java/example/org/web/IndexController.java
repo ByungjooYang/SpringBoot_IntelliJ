@@ -5,6 +5,7 @@ import example.org.config.auth.dto.SessionUser;
 import example.org.service.posts.PostsService;
 import example.org.web.dto.PostsResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,18 +26,18 @@ public class IndexController {
     public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        Enumeration se = httpSession.getAttributeNames();
+        /*Enumeration se = httpSession.getAttributeNames();
 
         while (se.hasMoreElements()) {
             String getse = se.nextElement() + "";
 
             System.out.println("@@@@@@@ session : " + getse + " : " + httpSession.getAttribute(getse));
 
-        }
+        }*/
+
         if (user != null) {
-            System.out.println(user.getName());
-            //model.addAttribute("userName", user.getName());
             model.addAttribute("userName", "aaa");
+            model.addAttribute("user", user.getName());
         }
 
         return "index";
