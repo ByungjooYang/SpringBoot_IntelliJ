@@ -5,13 +5,16 @@ import example.org.domain.user.User;
 import example.org.domain.user.UserRepository;
 import example.org.web.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -20,5 +23,10 @@ public class UserService {
         String password = passwordEncoder.encode(userDTO.getPassword());
         User user = new User(userDTO.getName(), userDTO.getEmail(), null, password, Role.USER);
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 }
