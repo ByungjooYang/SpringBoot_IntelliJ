@@ -3,22 +3,22 @@
 <h1>회원가입</h1>
 
 <div class="col-md-12">
-    <div clas="col-md-4">
+    <div class="col-md-4">
         <form id="joinForm" action="/join" method="post">
             <div class="form-group">
-                <label for="id">이메일</label>
+                <label for="email">이메일</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요."/>
             </div>
             <div class="form-group">
-                <label for="pwd">비밀번호</label>
+                <label for="password">비밀번호</label>
                 <input type="password" class="form-control" id="password" name="password"/>
             </div>
             <div class="form-group">
-                <label for="re-password">비밀번호 재입력</label>
+                <label for="re_password">비밀번호 재입력</label>
                 <input type="password" class="form-control" id="re_password"/>
             </div>
             <div class="form-group">
-                <label for="nickname">이름</label>
+                <label for="name">이름</label>
                 <input type="text" class="form-control" id="name" name="name">
             </div>
             <a href="/" role="button" class="btn btn-secondary">취 소</a>
@@ -27,9 +27,4 @@
     </div>
 </div>
 
-<script>
-    function join() {
-
-    }
-</script>
 {{>layout/footer}}
