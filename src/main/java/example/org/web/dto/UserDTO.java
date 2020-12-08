@@ -1,11 +1,10 @@
 package example.org.web.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor
+@Setter
+@AllArgsConstructor
 public class UserDTO {
     private String email;
     private String password;
