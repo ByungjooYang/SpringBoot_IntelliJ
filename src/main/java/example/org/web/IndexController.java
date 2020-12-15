@@ -26,18 +26,19 @@ public class IndexController {
     public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        Enumeration se = httpSession.getAttributeNames();
+        /*Enumeration se = httpSession.getAttributeNames();
 
         while (se.hasMoreElements()) {
             String getse = se.nextElement() + "";
 
             System.out.println("@@@@@@@ session : " + getse + " : " + httpSession.getAttribute(getse));
 
-        }
+        }*/
 
         if (user != null) {
-            model.addAttribute("userName", "aaa");
+            model.addAttribute("userName", user.getName());
             model.addAttribute("user", user.getName());
+
         }
 
         return "index";

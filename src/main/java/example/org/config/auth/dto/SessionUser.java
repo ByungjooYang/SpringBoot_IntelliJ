@@ -2,6 +2,7 @@ package example.org.config.auth.dto;
 
 import example.org.domain.user.User;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -15,6 +16,12 @@ public class SessionUser implements Serializable {
         this.name = user.getName();
         this.email = user.getEmail();
         this.picture = user.getPicture();
+    }
+
+    public SessionUser(String email, String name, String picture) {
+        this.email = email;
+        this.name = name;
+        this.picture = picture;
     }
 }
 

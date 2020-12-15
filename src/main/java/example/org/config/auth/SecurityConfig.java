@@ -2,6 +2,7 @@ package example.org.config.auth;
 
 import example.org.domain.user.Role;
 import example.org.service.user.UserService;
+import example.org.web.CustomLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/loginForm")
                         .defaultSuccessUrl("/")
                             .loginProcessingUrl("/login")
+                                .successHandler(new CustomLoginSuccessHandler())
             .and()
                 .logout()
                     .logoutSuccessUrl("/")
