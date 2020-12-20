@@ -52,10 +52,11 @@ public class UserService implements UserDetailsService {
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
         if(("admin").equals(email)){
-            authorityList.add(new SimpleGrantedAuthority(Role.ADMIN.name()));
+            authorityList.add(new SimpleGrantedAuthority(Role.ADMIN.getKey()));
 
         }else{
-            authorityList.add(new SimpleGrantedAuthority(Role.USER.name()));
+            authorityList.add(new SimpleGrantedAuthority(Role.USER.getKey()));
+
         }
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorityList);
