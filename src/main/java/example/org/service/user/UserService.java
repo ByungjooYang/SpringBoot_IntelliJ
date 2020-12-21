@@ -31,6 +31,19 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public String getName(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            return user.getName();
+        }
+
+        return null;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> userWrapper = userRepository.findByEmail(email);
@@ -39,10 +52,11 @@ public class UserService implements UserDetailsService {
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
         if(("admin").equals(email)){
-            authorityList.add(new SimpleGrantedAuthority(Role.ADMIN.name()));
+            authorityList.add(new SimpleGrantedAuthority(Role.ADMIN.getKey()));
 
         }else{
-            authorityList.add(new SimpleGrantedAuthority(Role.USER.name()));
+            authorityList.add(new SimpleGrantedAuthority(Role.USER.getKey()));
+
         }
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorityList);

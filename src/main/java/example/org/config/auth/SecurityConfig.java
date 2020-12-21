@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/loginForm")
                         .defaultSuccessUrl("/")
                             .loginProcessingUrl("/login")
-                                .successHandler(new CustomLoginSuccessHandler())
+                                .successHandler(new CustomLoginSuccessHandler(userService))
             .and()
                 .logout()
                     .logoutSuccessUrl("/")
