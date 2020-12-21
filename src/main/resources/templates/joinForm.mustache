@@ -4,7 +4,7 @@
 
 <div class="col-md-12">
     <div class="col-md-4">
-        <form id="joinForm" action="/join" method="post">
+        <form id="joinForm" name="joinForm" action="/join" method="post">
             <div class="form-group">
                 <label for="email">이메일</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요."/>
@@ -22,9 +22,52 @@
                 <input type="text" class="form-control" id="name" name="name">
             </div>
             <a href="/" role="button" class="btn btn-secondary">취 소</a>
-            <button type="submit" class="btn btn-primary" id="btn-join">회원가입</button>
+            <button type="button" class="btn btn-primary" id="btn-join" onclick="join()">회원가입</button>
         </form>
+        {{#msg}}
+            <input type="hidden" id="msg" value="{{msg}}">
+        {{/msg}}
+
     </div>
 </div>
+<script>
+    let msg = document.getElementById("msg");
+
+    if(msg != null){
+        alert("이미 있는 이메일 입니다.");
+    }
+
+    function join() {
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+        let re_password = document.getElementById("re_password");
+        let name = document.getElementById("name");
+
+        if (email.value == "") {
+            alert("이메일을 입력해주세요");
+            email.focus();
+
+        } else if (password.value == "") {
+            alert("비밀번호를 입력해주세요");
+            password.focus();
+
+        } else if (password.value != re_password.value) {
+            alert("비밀번호가 일치하지 않습니다.");
+            password.value = "";
+            re_password.value = "";
+
+            password.focus();
+
+        } else if (name.value == "") {
+            alert("이름을 입력해주세요");
+            name.focus();
+
+        } else {
+            document.joinForm.submit();
+
+        }
+    }
+
+</script>
 
 {{>layout/footer}}

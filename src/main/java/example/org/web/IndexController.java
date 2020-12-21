@@ -33,19 +33,20 @@ public class IndexController {
 
             System.out.println("@@@@@@@ session : " + getse + " : " + httpSession.getAttribute(getse));
 
-        }
+        }*/
 
         if (user != null) {
             model.addAttribute("userName", user.getName());
             model.addAttribute("user", user.getName());
 
-        }*/
+        }
 
         return "index";
     }
 
     @GetMapping("/posts/save")
-    public String postsSave() {
+    public String postsSave(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("user", user.getName());
 
         return "posts-save";
     }
