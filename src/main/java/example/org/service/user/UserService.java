@@ -74,3 +74,9 @@ public class UserService implements UserDetailsService {
     }
 
 }
+
+/*
+@Transactional
+ : transaction begin, commit을 자동으로 수행해 준다.
+  예외를 발생시키면, rollback 처리를 자동 수행해준다.
+ */
