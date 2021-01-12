@@ -12,6 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -48,6 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                     .userInfoEndpoint()
                         .userService(customOAuth2UserService);
+
+        httpSecurity
+                .rememberMe()
+                    .userDetailsService(userService);
 
 
     }
