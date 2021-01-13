@@ -1,0 +1,86 @@
+{{>layout/header}}
+
+<h1>회원가입</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form id="joinForm" name="joinForm" action="/join" method="post">
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요."/>
+                <label style="font-size: 8px;"><span style="color: red;">*</span>이메일은 실제 사용하는 이메일로 써주세요</label>
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password"/>
+                <label style="font-size: 8px;"><span style="color: red;">*</span>비밀번호는 영문자와 숫자를 포함한 8자리~16자리이어야 합니다.</label>
+            </div>
+            <div class="form-group">
+                <label for="re_password">비밀번호 재입력</label>
+                <input type="password" class="form-control" id="re_password"/>
+            </div>
+            <div class="form-group">
+                <label for="name">이름</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <a href="/" role="button" class="btn btn-secondary">취 소</a>
+            <button type="button" class="btn btn-primary" id="btn-join" onclick="join()">회원가입</button>
+        </form>
+        {{#msg}}
+            <input type="hidden" id="msg" value="{{msg}}">
+        {{/msg}}
+
+    </div>
+</div>
+<script>
+    let msg = document.getElementById("msg");
+
+
+    if(msg != null){
+        alert("이미 있는 이메일 입니다.");
+    }
+
+
+
+    function join() {
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+        let re_password = document.getElementById("re_password");
+        let name = document.getElementById("name");
+        let passwordValidate = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
+        let emailValidate = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        if (email.value == "") {
+            alert("이메일을 입력해주세요");
+            email.focus();
+
+        }else if(!emailValidate.test(email.value)){
+            alert("이메일 형식을 맞춰주세요");
+
+        }else if (password.value == "") {
+            alert("비밀번호를 입력해주세요");
+            password.focus();
+
+        }else if(!passwordValidate.test(password.value)){
+            alert("비밀번호 형식을 맞춰주세요");
+
+        }else if(password.value != re_password.value) {
+            alert("비밀번호가 일치하지 않습니다.");
+            password.value = "";
+            re_password.value = "";
+
+            password.focus();
+
+        } else if (name.value == "") {
+            alert("이름을 입력해주세요");
+            name.focus();
+
+        } else {
+            document.joinForm.submit();
+
+        }
+    }
+
+</script>
+
+{{>layout/footer}}
