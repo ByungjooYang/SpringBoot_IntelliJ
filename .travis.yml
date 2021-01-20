@@ -1,13 +1,14 @@
 language: java
 jdk:
   - openjdk8
-
+  -
 branches:   # Travis CI를 어느 브랜치가 푸시될 때 수행할지를 지정한다.
   only:
     - master
 
 #Travis CI 서버의 Home
-cache:                # 그레들을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시해서, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정한다.
+
+cache:      # 그레들을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시해서, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정한다.
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
@@ -27,11 +28,22 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY      #Travis repo setting 설정값.
     secret_access_key: $AWS_SECRET_KEY  #Travis repo setting 설정값.
-    bucket: yang-springboot-build            #s3 버킷
+    bucket: yang-springboot-build       #s3 버킷
     region: ap-northeast-2
     skip_cleanup: true
     acl: private                        # zip 파일 접근을 private로 한다.
     local_dir: deploy                   # before_deploy 에서 생성한 디렉토리
+    wait-until-deploy: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: yang-springboot-build
+    key: SpringBoot_IntelliJ.zip                # 빌드 파일을 압축해서 전달
+    bundle_type: zip                            # 압축 확장자
+    application: SpringBoot_IntelliJ            # CodeDeploy 애플리케이션 이름
+    deployment_group: SpringBoot_IntelliJ-group # CodeDeploy 배포 그룹
+    region: ap-northeast-2
     wait-until-deploy: true
 
 #CI 실행 완료 시 메일로 알람
