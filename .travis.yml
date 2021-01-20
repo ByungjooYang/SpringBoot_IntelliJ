@@ -19,7 +19,7 @@ before_install:
   - chmod +x gradlew
 
 before_deploy:                    #deploy 명령어가 실행되기 전에 수행
-  - zip -r SpringBoot_IntelliJ    #SpringBoot_IntetlliJ 이름으로 파일을 압축시킴.
+  - zip -r SpringBoot_IntelliJ *  #SpringBoot_IntetlliJ 이름으로 파일을 압축시킴.
   - mkdir -p deploy
   - mv SpringBoot_IntelliJ.zip deploy/SpringBoot_IntelliJ.zip
 
