@@ -19,7 +19,7 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user) {
+    public String index(Model model, @LoginUser SessionUser sessionUser) {
         model.addAttribute("posts", postsService.findAllDesc());
 
         /*Enumeration se = httpSession.getAttributeNames();
@@ -31,9 +31,9 @@ public class IndexController {
 
         }*/
 
-        if (user != null) {
-            model.addAttribute("userName", user.getName());
-            model.addAttribute("user", user.getName());
+        if (sessionUser != null) {
+            model.addAttribute("userName", sessionUser.getName());
+            model.addAttribute("sessionUser", sessionUser.getName());
 
         }
 
