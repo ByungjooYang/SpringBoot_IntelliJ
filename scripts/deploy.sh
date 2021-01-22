@@ -9,7 +9,7 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
-CURRENT_PID=$(pgrep -fl SpringBoot_IntelliJ | grep jar | awk '{print $1}')
+CURRENT_PID=$(pgrep -fl $PROJECT_NAME | grep jar | awk '{print $1}')
 
 echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
 
@@ -35,6 +35,6 @@ echo "> $JAR_NAME 실행"
 
 nohup java -jar \
     -Dspring.config.location=classpath:/application.properties,classpath:/application-DB.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-AWS.properties \
-    $JAR_NAME > $REPOSITORY/nohup.out 2>1 &
+    $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
 
 
