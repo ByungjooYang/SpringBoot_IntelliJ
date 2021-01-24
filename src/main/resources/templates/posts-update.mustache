@@ -6,6 +6,8 @@
     <div class="col-md-4">
         <form>
             <div class="form-group">
+                <input type="hidden" id="postEmail" value="{{post.email}}"/>
+                <input type="hidden" id="userEmail" value="{{sessionUser.email}}"/>
                 <label for="title">글 번호</label>
                 <input type="text" class="form-control" id="id" value="{{post.id}}" readonly/>
             </div>
@@ -23,9 +25,18 @@
             </div>
         </form>
         <a href="/" role="button" class="btn btn-secondary">취 소</a>
-        <button type="button" class="btn btn-primary" id="btn-update">수 정</button>
-        <button type="button" class="btn btn-danger" id="btn-delete">삭 제</button>
+        <button type="button" class="btn btn-primary" id="btn-update" style="display: none;">수 정</button>
+        <button type="button" class="btn btn-danger" id="btn-delete" style="display: none;">삭 제</button>
     </div>
 </div>
+
+<script>
+    window.onload = function () {
+        if(document.getElementById("postEmail").value == document.getElementById("userEmail").value){
+            document.getElementById("btn-update").style.display = "inline-block";
+            document.getElementById("btn-delete").style.display = "inline-block";
+        }
+    };
+</script>
 
 {{>layout/footer}}

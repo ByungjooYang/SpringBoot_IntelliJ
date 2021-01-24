@@ -1,5 +1,8 @@
 package example.org.web;
 
+import example.org.config.auth.LoginUser;
+import example.org.config.auth.dto.SessionUser;
+import example.org.domain.user.User;
 import example.org.service.posts.PostsService;
 import example.org.web.dto.PostsResponseDTO;
 import example.org.web.dto.PostsSaveRequestDTO;
@@ -7,13 +10,18 @@ import example.org.web.dto.PostsUpdateRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @RestController
 public class PostsApiController {
     private final PostsService postsService;
 
     @PostMapping("/api/v1/posts")
-    public Long save(@RequestBody PostsSaveRequestDTO requestDTO) {
+    public Long save(@RequestBody PostsSaveRequestDTO requestDTO, @LoginUser SessionUser sessionUser) {
+        String email = sessionUser.getEmail();
+        requestDTO.setEmail(email);
 
         return postsService.save(requestDTO);
     }
