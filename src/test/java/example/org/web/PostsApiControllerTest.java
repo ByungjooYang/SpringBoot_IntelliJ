@@ -1,6 +1,7 @@
 package example.org.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import example.org.config.auth.dto.SessionUser;
 import example.org.domain.posts.Posts;
 import example.org.domain.posts.PostsRepository;
 import example.org.web.dto.PostsSaveRequestDTO;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -41,6 +43,7 @@ public class PostsApiControllerTest {
     private WebApplicationContext context;
 
     private MockMvc mvc;
+    protected MockHttpSession mockHttpSession;
 
     @Before
     public void setup() {
@@ -48,11 +51,18 @@ public class PostsApiControllerTest {
                 .webAppContextSetup(context)
                 .apply(SecurityMockMvcConfigurers.springSecurity())
                 .build();
+        SessionUser sessionUser = new SessionUser("email", "name", "picture");
+
+
+        mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute("sessionUser", sessionUser);
     }
 
     @After
     public void tearDrop() throws Exception {
         postsRepository.deleteAll();
+
+        mockHttpSession.clearAttributes();
     }
 
     @Test
@@ -62,7 +72,7 @@ public class PostsApiControllerTest {
         String title = "title";
         String content = "content";
 
-        PostsSaveRequestDTO requestDTO = PostsSaveRequestDTO.builder().title(title).content(content).author("author").build();
+        PostsSaveRequestDTO requestDTO = PostsSaveRequestDTO.builder().title(title).content(content).author("author").email("email").build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";
 
@@ -72,7 +82,7 @@ public class PostsApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
          */
-        mvc.perform(post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(new ObjectMapper().writeValueAsString(requestDTO))).andExpect(status().isOk());
+        mvc.perform(post(url).session(mockHttpSession).contentType(MediaType.APPLICATION_JSON_UTF8).content(new ObjectMapper().writeValueAsString(requestDTO))).andExpect(status().isOk());
 
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);

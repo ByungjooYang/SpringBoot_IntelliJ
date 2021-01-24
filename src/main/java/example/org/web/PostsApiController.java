@@ -21,6 +21,7 @@ public class PostsApiController {
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDTO requestDTO, @LoginUser SessionUser sessionUser) {
         String email = sessionUser.getEmail();
+
         requestDTO.setEmail(email);
 
         return postsService.save(requestDTO);
