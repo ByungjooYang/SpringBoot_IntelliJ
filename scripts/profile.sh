@@ -12,7 +12,7 @@ function find_idle_profile()
     CURRENT_PROFILE=$(curl -s http://localhost/profile)
   fi
 
-  if [ ${CURRNET_PROFILE} == DB1 ]
+  if [ ${CURRENT_PROFILE} == DB1 ]
   then
     IDLE_PROFILE=DB2
   else
