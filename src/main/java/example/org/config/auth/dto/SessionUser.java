@@ -2,7 +2,6 @@ package example.org.config.auth.dto;
 
 import example.org.domain.user.User;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 
