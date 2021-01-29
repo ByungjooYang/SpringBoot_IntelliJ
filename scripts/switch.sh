@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# 엔진엑스가 바라보는 스프링 부트를 최신 버전으로 변경하는 스크립트
+
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh

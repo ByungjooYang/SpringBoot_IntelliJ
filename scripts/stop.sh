@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# 기존 엔진 엑스에 연결되어 있지는 않지만, 실행중이던 스프링 부트를 종료 한다.
+
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)    # 현재 stop.sh 가 속해있는 경로를 찾는다. 하단의 코드와 같이 profile.sh 의 경로를 찾기 위해 사용된다.
 source ${ABSDIR}/profile.sh   # 자바로 보면 일종의 import 구문. 해당 코드로 인해 stop.sh 에서도 profile.sh 의 여러 function 을 사용할수 있게 된다.

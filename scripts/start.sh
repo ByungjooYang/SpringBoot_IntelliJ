@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# 배포할 신규 버전 스프링 부트 프로젝트롤 stop.sh로 종료한 'profile'로 실행
+
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh
@@ -8,7 +10,7 @@ REPOSITORY=/home/ec2-user/app/step3
 PROJECT_NAME=SpringBoot_IntelliJ
 
 echo "> Build 파일 복사"
-echo "> cp $REPOSITORY/zip/*.jar $REPOSITORY"
+echo "> cp $REPOSITORY/zip/*.jar $REPOSITORY/"
 
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
@@ -16,6 +18,7 @@ echo "> 새 애플리케이션 배포"
 JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
 
 echo "> JAR_Name : $JAR_NAME"
+
 echo "> $JAR_NAME 에 실행권한 추가"
 
 chmod +x $JAR_NAME

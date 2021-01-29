@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# 앞선 4개의 스크립트 파일에서 공용으로 사용할 'profile' 과 포트 체크 로직을 담고 있음.
+
 # 쉬고 있는 profile 찾기 : DB1이 사용 중이라면 DB2가 쉬고 있고, 반대면 DB1이 쉬고 있음
 function find_idle_profile()
 {
