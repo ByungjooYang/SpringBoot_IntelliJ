@@ -16,7 +16,6 @@ import java.nio.charset.Charset;
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args); //run은 내장 WAS를 실행하는 메소드 => 톰캣을 사용할 필요가 없다.
-
     }
 
     @Bean
