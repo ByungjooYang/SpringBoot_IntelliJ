@@ -12,15 +12,20 @@ permissions:    # CodeDeploy 에서 EC2 서버로 넘겨준 파일들을 모두 
     group: ec2-user
 
 hooks:                    # CodeDeploy 배포 단계에서 실행할 명령어를 지정한다.
-  AfterInstall:
-    - location: stop.sh   # 엔진엑스와 연결되어있지 않은 스프링 부트를 종료
+  ApplicationStart:
+    - location: deploy.sh
       timeout: 60
       runas: ec2-user
-  ApplicationStart:       # ApplicationStart 단계에서 deploy.sh를 ec2-user 권한으로 실행하게 한다.
-    - location: start.sh  # 엔진엑스와 연결되어 있지 않는 Port 로 새 버전의 스프링 부트를 시작
-      timeout: 60
-      runas: ec2-user
-  ValidateService:
-    - location: health.sh  # 새 스프링 부트가 정상적으로 실행됐는지 확인
-      timeout: 60
-      runas: ec2-user
+
+  #AfterInstall:
+  #  - location: stop.sh   # 엔진엑스와 연결되어있지 않은 스프링 부트를 종료
+  #    timeout: 60
+  #    runas: ec2-user
+  #ApplicationStart:       # ApplicationStart 단계에서 deploy.sh를 ec2-user 권한으로 실행하게 한다.
+  #  - location: start.sh  # 엔진엑스와 연결되어 있지 않는 Port 로 새 버전의 스프링 부트를 시작
+  #    timeout: 60
+  #    runas: ec2-user
+  #ValidateService:
+  #  - location: health.sh  # 새 스프링 부트가 정상적으로 실행됐는지 확인
+  #    timeout: 60
+  #    runas: ec2-user
