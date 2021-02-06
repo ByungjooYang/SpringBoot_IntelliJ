@@ -6,31 +6,31 @@ import example.org.domain.posts.Posts;
 import example.org.domain.posts.PostsRepository;
 import example.org.web.dto.PostsSaveRequestDTO;
 import example.org.web.dto.PostsUpdateRequestDTO;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostsApiControllerTest {
     @LocalServerPort
@@ -45,7 +45,7 @@ public class PostsApiControllerTest {
     private MockMvc mvc;
     protected MockHttpSession mockHttpSession;
 
-    @Before
+    @BeforeEach
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -58,7 +58,7 @@ public class PostsApiControllerTest {
         mockHttpSession.setAttribute("sessionUser", sessionUser);
     }
 
-    @After
+    @AfterEach
     public void tearDrop() throws Exception {
         postsRepository.deleteAll();
 
@@ -124,7 +124,7 @@ public class PostsApiControllerTest {
 1. HelloControllerTest와 달리 @WebMvcTest를 쓰지 않았는데 얘는
 JPA 기능이 작동을하지 않기 때문이다.
 
-2. @Before
+2. @BeforeEach
  : 매번 테스트 시작 전에 MockMvc 인스턴스를 생성한다.
 
 3. mvc.perform

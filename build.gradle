@@ -1,13 +1,13 @@
 buildscript {
     ext{
-        springBootVersion = '2.1.7.RELEASE'
+        springBootVersion = '2.4.1'
     }
     repositories {
         mavenCentral()
         jcenter()
     }
     dependencies{
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
     }
 }
 
@@ -23,21 +23,32 @@ repositories {
     mavenCentral()
 }
 
+test{
+    useJUnitPlatform()
+}
+
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.projectlombok:lombok')
-    compile('org.springframework.boot:spring-boot-starter-mustache')
-    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
 
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('com.h2database:h2:')
-    compile('org.springframework.session:spring-session-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('mysql:mysql-connector-java')
+    //lombok
+    implementation('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
 
-    compile('org.springframework.boot:spring-boot-devtools')
+    //데이터베이스
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('com.h2database:h2:')
+    implementation('org.springframework.session:spring-session-jdbc')
+    implementation('org.springframework.boot:spring-boot-starter-jdbc')
+    implementation('mysql:mysql-connector-java')
 
-    testCompile('org.springframework.security:spring-security-test')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation('org.springframework.boot:spring-boot-devtools')
+
+    //테스트
+    testImplementation('org.springframework.security:spring-security-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
