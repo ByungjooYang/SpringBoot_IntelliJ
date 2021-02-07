@@ -1,0 +1,14 @@
+example/org/web/ProfileControllerUnitTest.java
+ example.org.web.ProfileControllerUnitTest
+example/org/web/IndexControllerTest.java
+ example.org.web.IndexControllerTest
+example/org/web/ProfileControllerTest.java
+ example.org.web.ProfileControllerTest
+example/org/web/PostsApiControllerTest.java
+ example.org.web.PostsApiControllerTest
+example/org/web/HelloControllerTest.java
+ example.org.web.HelloControllerTest
+example/org/web/dto/HelloResponseDtoTest.java
+ example.org.web.dto.HelloResponseDtoTest
+example/org/domain/posts/PostsRepositoryTest.java
+ example.org.domain.posts.PostsRepositoryTest
