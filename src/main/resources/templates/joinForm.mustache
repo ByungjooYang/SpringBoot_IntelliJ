@@ -1,25 +1,26 @@
 {{>layout/header}}
 
-<h1>회원가입</h1>
+<h3 align="center">회원가입</h3>
 
-<div class="col-md-12">
+<div class="col-md-12" align="center">
+
     <div class="col-md-4">
         <form id="joinForm" name="joinForm" action="/join" method="post">
-            <div class="form-group">
+            <div class="form-group" align="left">
                 <label for="email">이메일</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요."/>
                 <label style="font-size: 8px;"><span style="color: red;">*</span>이메일은 실제 사용하는 이메일로 써주세요</label>
             </div>
-            <div class="form-group">
+            <div class="form-group" align="left">
                 <label for="password">비밀번호</label>
                 <input type="password" class="form-control" id="password" name="password"/>
                 <label style="font-size: 8px;"><span style="color: red;">*</span>비밀번호는 영문자와 숫자를 포함한 8자리~16자리이어야 합니다.</label>
             </div>
-            <div class="form-group">
+            <div class="form-group" align="left">
                 <label for="re_password">비밀번호 재입력</label>
                 <input type="password" class="form-control" id="re_password"/>
             </div>
-            <div class="form-group">
+            <div class="form-group" align="left">
                 <label for="name">이름</label>
                 <input type="text" class="form-control" id="name" name="name">
             </div>
