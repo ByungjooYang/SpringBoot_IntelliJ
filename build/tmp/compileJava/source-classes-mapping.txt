@@ -34,14 +34,14 @@ example/org/domain/posts/Posts.java
  example.org.domain.posts.Posts$PostsBuilder
 example/org/web/UserController.java
  example.org.web.UserController
-example/org/web/IndexController.java
- example.org.web.IndexController
+example/org/Application.java
+ example.org.Application
 example/org/web/ProfileController.java
  example.org.web.ProfileController
 example/org/web/PostsApiController.java
  example.org.web.PostsApiController
-example/org/Application.java
- example.org.Application
+example/org/service/user/UserService.java
+ example.org.service.user.UserService
 example/org/config/WebConfig.java
  example.org.config.WebConfig
 example/org/domain/user/UserRepository.java
@@ -61,5 +61,5 @@ example/org/config/auth/SecurityConfig.java
  example.org.config.auth.SecurityConfig
 example/org/domain/BaseTimeEntity.java
  example.org.domain.BaseTimeEntity
-example/org/service/user/UserService.java
- example.org.service.user.UserService
+example/org/web/IndexController.java
+ example.org.web.IndexController
