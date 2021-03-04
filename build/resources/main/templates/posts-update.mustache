@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label for="title">제 목</label>
-                <input type="text" class="form-control" id="title" value="{{post.title}}"/>
+                <input type="text" class="form-control" id="title" value="{{post.title}}" readonly/>
             </div>
             <div class="form-group">
                 <label for="author">작성자</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label for="content">내용</label>
-                <textarea class="form-control" id="content">{{post.content}}</textarea>
+                <textarea class="form-control" id="content" readonly>{{post.content}}</textarea>
             </div>
         </form>
         <a href="/" role="button" class="btn btn-secondary">취 소</a>
@@ -40,6 +40,7 @@
             document.getElementById("btn-delete").style.display = "inline-block";
         }
     };
+
 </script>
 
 {{>layout/footer}}

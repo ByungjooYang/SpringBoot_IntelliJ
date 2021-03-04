@@ -36,10 +36,21 @@ let main = {
     },
 
     update: function () {
-        let data = {
-            title: $('#title').val(),
-            content: $('#content').val()
+        let title = document.getElementById("title");
+        let content = document.getElementById("content");
+
+        if(title.readOnly == true) {
+            title.readOnly = false;
+            content.readOnly = false;
+
+            return;
         }
+
+        let data = {
+            title: title.value,
+            content: content.value
+        }
+
 
         let id = $('#id').val();
 
@@ -59,6 +70,10 @@ let main = {
 
     delete: function () {
         let id = $('#id').val();
+
+        let ask = confirm("정말로 삭제하시겠습니까?");
+
+        if(ask == false) return;
 
         $.ajax({
             type: 'DELETE',
