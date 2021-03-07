@@ -59,7 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .userDetailsService(userService)
                     .tokenRepository(tokenRepository());
 
-
     }
 
     @Override
